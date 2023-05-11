@@ -12,13 +12,12 @@ char *stu_getline(int fd)
 {
     static char *carry = NULL;
     static int fdsave = -1;
-    char *to_return;
+    char *str1;
+    char *str2;
 
     if (fd == -1) {
-        if (carry == NULL) {
-            free(carry);
-        }
-            return (NULL);
+        free(carry);
+        return (NULL);
     }
     if (fd != fdsave) {
         free(carry);
@@ -26,11 +25,21 @@ char *stu_getline(int fd)
         fdsave = fd;
     }
     if (carry == NULL) {
-        to_return = loop_read_until(fd, '\n');
+        str1 = loop_read_until(fd, '\n');
+        carry = stu_strdup(split_inplace(str1, '\n'));
+        return (str1);
     } else {
-        to_return = carry;
-        to_return = strdupcat(carry, loop_read_until(fd, '\n'));
+        str1 = stu_strdup(carry);
+        if (stu_strchr(carry, '\n')) {
+            free(carry);
+            carry = stu_strdup(split_inplace(str1, '\n'));
+            return (str1);
+        }
+        str2 = str1;
+        str1 = strdupcat(str1, loop_read_until(fd, '\n'));
+        free(str2);
+        free(carry);
+        carry = stu_strdup(split_inplace(str1, '\n'));
+        return (str1);
     }
-    carry = stu_strdup(split_inplace(to_return, '\n'));
-    return (to_return);
 }

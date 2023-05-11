@@ -11,7 +11,7 @@
 char *stu_getline(int fd)
 {
     static char *carry = NULL;
-    static int fdsave = 0;
+    static int fdsave = -1;
     char *str1;
     char *str2;
 
@@ -21,12 +21,11 @@ char *stu_getline(int fd)
     }
     if (fd != fdsave) {
         free(carry);
-        fdsave = fd;
         carry = NULL;
+        fdsave = fd;
     }
     if (carry == NULL) {
         str1 = loop_read_until(fd, '\n');
-        free(carry);
         carry = stu_strdup(split_inplace(str1, '\n'));
         return (str1);
     } else {

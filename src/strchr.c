@@ -21,7 +21,7 @@ char *stu_strchr(const char *str, char search)
         if (search == str[i]) {
             liste = (char*)str;
             return (&liste[i]);
-            }
+        }
         i += 1;
     }
     return (0);

@@ -10,31 +10,27 @@
 
 char *loop_read_until(int fd, char token)
 {
-    char *str1;
-    char *str2;
+    char *to_free;
+    char *to_return;
     int size_read;
     int i;
 
-    str1 = malloc(sizeof(char) * 17);
-    size_read = read(fd, str1, 16);
-    str1[size_read] = '\0';
-    str2 = strdup(str1);
-    if (str1 == NULL)
-        return (NULL);
+    to_free = malloc(sizeof(char) * 17);
+    size_read = read(fd, to_free, 16);
+    to_free[size_read] = '\0';
+    to_return = strdup(to_free);
     while (size_read > 0) {
         i = 0;
-        while (i < 16 && str1[i] != '\0' && str1[i] != token) {
+        while (i < 16 && to_free[i] != '\0' && to_free[i] != token) {
             i += 1;
         }
-            if (str1[i] == token) {
-                free(str1);
-                return (str2);
-            }
-        size_read = read(fd, str1, 16);
-        str1[size_read] = '\0';
-        str2 = strdup(str2);
-        str2 = strdupcat(str2, str1);
+        if (to_free[i] == token && size_read > 0) {
+            free(to_free);
+            return (to_return);
+        }
+        size_read = read(fd, to_free, 16);
+        to_free[size_read] = '\0';
+        to_return = strdupcat(to_return, to_free);
     }
-    free(str1);
-    return (str2);
+    return (0);
 }

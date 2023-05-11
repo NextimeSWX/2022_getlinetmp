@@ -13,8 +13,9 @@ char *split_inplace(char *str, char token)
     int i;
 
     i = 0;
-    if (str == NULL)
+    if (str == NULL) {
         return (NULL);
+    }
     while (str[i] != token) {
         i += 1;
     }

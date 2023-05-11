@@ -15,7 +15,7 @@ SRCS	=	src/getline.c			\
 		src/loop_read_until.c		\
 		src/strdup.c			\
 		src/strchr.c			\
-		src/main.c
+#		src/main.c
 
 SRCS_TEST =	test/test_getline.c
 

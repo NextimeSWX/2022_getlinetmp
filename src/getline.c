@@ -17,8 +17,8 @@ char *stu_getline(int fd)
     if (fd == -1) {
         if (carry == NULL) {
             free(carry);
-            return (NULL);
         }
+            return (NULL);
     }
     if (fd != fdsave) {
         free(carry);

@@ -32,5 +32,6 @@ char *loop_read_until(int fd, char token)
         to_free[size_read] = '\0';
         to_return = strdupcat(to_return, to_free);
     }
-    return (0);
+    free(to_free);
+    return (to_return);
 }

@@ -27,5 +27,7 @@ Test(getline, normal)
     cr_assert_str_eq(str, "");
     str = stu_getline(fd1);
     cr_assert_str_eq(str, "ez");
+    str = stu_getline(fd1);
+    cr_assert_str_eq(str, "");
 }
 
